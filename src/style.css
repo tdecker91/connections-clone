@@ -139,8 +139,9 @@ body {
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
   margin-bottom: 2rem;
-  max-width: 800px; /* Restrict the width of the grid */
+  max-width: 100%; /* Ensure the grid fits within the screen */
   margin: 0 auto; /* Center the grid */
+  padding: 0 2rem; /* Add spacing on left and right */
 }
 
 .word-input {
@@ -289,7 +290,7 @@ body {
   background: #f9f9f9;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 1.2rem; /* Increase font size */
+  font-size: 1rem; /* Reduce font size for better fit */
   font-weight: bold; /* Make text bold */
   transition: all 0.2s;
   color: #333;
@@ -302,8 +303,13 @@ body {
 
 .word-button.selected {
   background: #2196f3;
-  color: white;
+  color: white; /* Default to white for contrast */
   border-color: #1976d2;
+}
+
+.word-button.selected:active,
+.word-button.selected:hover {
+  color: #1565c0; /* Darker blue when hovered or active */
 }
 
 .word-button.found {
@@ -434,12 +440,41 @@ body {
 }
 
 @media (max-width: 480px) {
-  .words-grid,
+  #app {
+    padding: 0.5rem; /* Reduce app padding on very small screens */
+  }
+  
+  .setup-container,
+  .game-container {
+    padding: 1rem; /* Reduce container padding */
+  }
+  
+  .words-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile for setup page */
+    gap: 0.5rem; /* Reduce gap for tighter spacing */
+  }
+  
   .word-grid {
     grid-template-columns: repeat(4, 1fr); /* Ensure 4 columns on mobile */
+    gap: 0.5rem; /* Reduce gap for tighter spacing */
+    padding: 0; /* Remove padding on mobile */
   }
 
   .word-button {
-    padding: 0.75rem; /* Adjust padding for smaller screens */
+    padding: 1rem 0.25rem; /* Make buttons taller on mobile */
+    font-size: 0.8rem; /* Decrease font size for smaller screens */
+  }
+  
+  .word-input {
+    padding: 0.5rem; /* Reduce input padding */
+    font-size: 0.9rem; /* Slightly smaller font */
+  }
+  
+  .category-input {
+    padding: 1rem; /* Reduce category input padding */
+  }
+  
+  .setup-form {
+    gap: 1rem; /* Reduce gap between category sections */
   }
 }

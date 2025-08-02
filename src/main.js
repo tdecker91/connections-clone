@@ -78,18 +78,52 @@ class ConnectionsApp {
   constructor() {
     this.gameData = null
     this.currentPage = 'setup'
-    // If ?game= param, load game from url
+    
+    // Handle browser back/forward navigation
+    window.addEventListener('popstate', () => {
+      this.handleNavigation()
+    })
+    
+    // Initial navigation handling
+    this.handleNavigation()
+  }
+
+  handleNavigation() {
     const params = new URLSearchParams(window.location.search)
+    const path = window.location.pathname
+    
+    // Check if we have a game parameter
     if (params.has('game')) {
       try {
         const data = decodeGameData(params.get('game'))
         this.setGameData(data, true)
         return
       } catch (e) {
-        // fallback to setup
+        // Invalid game data, redirect to setup
+        this.redirectToSetup()
+        return
       }
     }
-    this.init()
+    
+    // Check if we're on an unrecognized path (not root or base path)
+    const basePath = import.meta.env.BASE_URL || '/'
+    const isValidPath = path === basePath || path === basePath.replace(/\/$/, '') || path === '/'
+    
+    if (!isValidPath) {
+      // Redirect to setup page for unrecognized paths
+      this.redirectToSetup()
+      return
+    }
+    
+    // Default to setup page
+    this.showSetup()
+  }
+
+  redirectToSetup() {
+    const basePath = import.meta.env.BASE_URL || '/'
+    const url = new URL(basePath, window.location.origin)
+    window.history.replaceState({}, '', url)
+    this.showSetup()
   }
 
   init() {
@@ -106,9 +140,10 @@ class ConnectionsApp {
     if (!fromUrl) {
       // Set ?game= param in url
       const encoded = encodeGameData(data)
-      const url = new URL(window.location)
+      const basePath = import.meta.env.BASE_URL || '/'
+      const url = new URL(basePath, window.location.origin)
       url.searchParams.set('game', encoded)
-      window.history.replaceState({}, '', url)
+      window.history.pushState({}, '', url)
     }
     this.showGame()
   }
@@ -116,9 +151,10 @@ class ConnectionsApp {
   showSetup() {
     this.currentPage = 'setup'
     // Clear game parameter from URL when going back to setup
-    const url = new URL(window.location)
+    const basePath = import.meta.env.BASE_URL || '/'
+    const url = new URL(basePath, window.location.origin)
     url.searchParams.delete('game')
-    window.history.replaceState({}, '', url)
+    window.history.pushState({}, '', url)
     this.render()
   }
 
