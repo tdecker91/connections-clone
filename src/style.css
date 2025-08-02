@@ -337,12 +337,11 @@ body {
 }
 
 .attempts-indicator {
-  position: fixed;
-  top: 2rem;
-  right: 2rem;
+  position: static; /* Remove fixed positioning */
   display: flex;
-  gap: 0.3rem;
-  z-index: 100;
+  justify-content: center;
+  margin-top: 2rem; /* Add spacing above */
+  margin-bottom: 2rem; /* Keep spacing below */
 }
 
 .attempt-dot {
@@ -423,13 +422,9 @@ body {
     font-size: 2rem;
   }
   
-  .words-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
+  .words-grid,
   .word-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
+    grid-template-columns: repeat(4, 1fr); /* Ensure 4 columns on mobile */
   }
   
   .game-actions {
