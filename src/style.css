@@ -436,10 +436,10 @@ body {
 @media (max-width: 480px) {
   .words-grid,
   .word-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(4, 1fr); /* Ensure 4 columns on mobile */
   }
-  
+
   .word-button {
-    padding: 0.75rem;
+    padding: 0.75rem; /* Adjust padding for smaller screens */
   }
 }
