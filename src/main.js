@@ -1,4 +1,3 @@
-// Ultra-compact binary encode/decode helpers
 function encodeGameData(data) {
   // Custom binary format: [titleLen][title][word1Len][word1][word2Len][word2]...
   // Repeat for 4 categories
@@ -116,6 +115,10 @@ class ConnectionsApp {
 
   showSetup() {
     this.currentPage = 'setup'
+    // Clear game parameter from URL when going back to setup
+    const url = new URL(window.location)
+    url.searchParams.delete('game')
+    window.history.replaceState({}, '', url)
     this.render()
   }
 
