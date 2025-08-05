@@ -294,6 +294,12 @@ body {
   font-weight: bold; /* Make text bold */
   transition: all 0.2s;
   color: #333;
+  outline: none; /* Remove focus outline */
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+}
+
+.word-button:focus {
+  outline: none; /* Ensure no focus outline */
 }
 
 .word-button:hover:not(:disabled):not(.selected) {
