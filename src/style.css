@@ -292,33 +292,27 @@ body {
   cursor: pointer;
   font-size: 1rem; /* Reduce font size for better fit */
   font-weight: bold; /* Make text bold */
-  transition: all 0.2s;
+  transition: none; /* Remove transitions for better mobile performance */
   color: #333;
-  outline: none; /* Remove focus outline */
-  -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none; /* Prevent text selection */
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }
 
-.word-button:focus {
-  outline: none; /* Ensure no focus outline */
-}
-
-.word-button:hover:not(:disabled):not(.selected) {
-  background: #e3f2fd;
-  border-color: #2196f3;
-  transform: translateY(-1px);
+/* Only show hover effects on devices that can actually hover (desktop/web) */
+@media (hover: hover) {
+  .word-button:hover:not(:disabled):not(.selected) {
+    background: #e3f2fd;
+    border-color: #2196f3;
+  }
 }
 
 .word-button.selected {
   background: #2196f3;
   color: white;
   border-color: #1976d2;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(33, 150, 243, 0.3);
-}
-
-.word-button.selected:hover {
-  background: #1976d2;
-  transform: translateY(-2px);
 }
 
 .word-button.found {

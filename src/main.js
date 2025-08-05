@@ -255,8 +255,7 @@ class ConnectionsApp {
     // Add click handlers for words
     const wordButtons = document.querySelectorAll('.word-button')
     wordButtons.forEach(button => {
-      button.addEventListener('click', (e) => {
-        e.preventDefault()
+      button.addEventListener('click', () => {
         const word = button.textContent
         
         if (selectedWords.includes(word)) {
@@ -269,23 +268,11 @@ class ConnectionsApp {
           button.classList.add('selected')
         }
         
-        // Clear any lingering focus/hover effects on mobile
-        button.blur()
-        // Force remove focus by temporarily making it non-focusable
-        setTimeout(() => {
-          button.style.pointerEvents = 'none'
-          setTimeout(() => {
-            button.style.pointerEvents = 'auto'
-          }, 10)
-        }, 10)
+        // Simple delayed blur to remove focus
+        setTimeout(() => button.blur(), 50)
         
         this.updateSubmitButton(selectedWords.length === 4)
         this.updateSelectionFeedback(selectedWords.length)
-      })
-      
-      // Additional event to clear focus on touch devices
-      button.addEventListener('touchend', () => {
-        button.blur()
       })
     })
 
