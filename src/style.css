@@ -296,20 +296,23 @@ body {
   color: #333;
 }
 
-.word-button:hover:not(:disabled) {
+.word-button:hover:not(:disabled):not(.selected) {
   background: #e3f2fd;
   border-color: #2196f3;
+  transform: translateY(-1px);
 }
 
 .word-button.selected {
   background: #2196f3;
-  color: white; /* Default to white for contrast */
+  color: white;
   border-color: #1976d2;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(33, 150, 243, 0.3);
 }
 
-.word-button.selected:active,
 .word-button.selected:hover {
-  color: #1565c0; /* Darker blue when hovered or active */
+  background: #1976d2;
+  transform: translateY(-2px);
 }
 
 .word-button.found {

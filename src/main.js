@@ -268,7 +268,11 @@ class ConnectionsApp {
           button.classList.add('selected')
         }
         
+        // Clear any lingering hover effects on mobile
+        button.blur()
+        
         this.updateSubmitButton(selectedWords.length === 4)
+        this.updateSelectionFeedback(selectedWords.length)
       })
     })
 
@@ -370,6 +374,20 @@ class ConnectionsApp {
   updateSubmitButton(enabled) {
     const submitButton = document.querySelector('#submit-guess')
     submitButton.disabled = !enabled
+  }
+
+  updateSelectionFeedback(count) {
+    const feedback = document.querySelector('#game-feedback')
+    if (count === 0) {
+      feedback.textContent = 'Select 4 words that belong together'
+      feedback.className = 'feedback'
+    } else if (count < 4) {
+      feedback.textContent = `${count} selected. Need ${4 - count} more.`
+      feedback.className = 'feedback'
+    } else {
+      feedback.textContent = '4 words selected. Click Submit!'
+      feedback.className = 'feedback success'
+    }
   }
 
   animateIncorrectGuess(selectedWords) {
